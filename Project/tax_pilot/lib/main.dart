@@ -1,23 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'app.dart';
+
 void main() {
-  runApp(const MainApp());
-}
+  WidgetsFlutterBinding.ensureInitialized();
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child:Container(
-            color:Colors.red(),
-            child:Text("Prasad Ladhane",)
-          )
-        ),
-      ),
-    );
-  }
+  runApp(
+    const TaxPilotApp(),
+  );
 }
