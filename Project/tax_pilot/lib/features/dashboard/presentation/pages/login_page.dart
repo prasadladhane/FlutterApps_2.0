@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tax_pilot/core/widgets/auth_form_field.dart';
-
+import '../../../../core/router/app_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/widgets/primary_button.dart';
@@ -452,14 +452,25 @@ class _LoginPageState extends State<LoginPage> {
                     
                         const SizedBox(width: 6),
                     
-                        Text(
-                          'Create Account',
-                          style: AppTextStyles.bodyMedium
-                              .copyWith(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        GestureDetector(
+  onTap: () {
+    Navigator.pushNamed(
+      context,
+      AppRouter.signup,
+    );
+  },
+
+  child: Text(
+    'Create Account',
+
+    style:
+        AppTextStyles.bodyMedium
+            .copyWith(
+      color: AppColors.primary,
+      fontWeight: FontWeight.w600,
+    ),
+  ),
+),
                       ],
                     ),
                   )
