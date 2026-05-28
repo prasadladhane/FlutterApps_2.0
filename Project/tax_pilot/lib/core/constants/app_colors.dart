@@ -146,4 +146,16 @@ class AppColors {
 
   static const Color glassEffect =
       Color.fromRGBO(255, 255, 255, 0.04);
+
+      static const Color cardHover =
+    Color.fromRGBO(35, 42, 54, 1);
+
+static const Color sidebarSelected =
+    Color.fromRGBO(41, 98, 255, 0.18);
+
+static const Color shimmerBase =
+    Color.fromRGBO(35, 40, 50, 1);
+
+static const Color shimmerHighlight =
+    Color.fromRGBO(55, 60, 70, 1);
 }
