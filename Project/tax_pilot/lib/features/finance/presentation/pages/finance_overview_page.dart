@@ -24,31 +24,34 @@ class FinanceOverviewPage extends StatelessWidget {
             children: [
 
               /// HEADER
-              Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+              Wrap(
+                alignment:
+                    WrapAlignment.spaceBetween,
                 children: [
 
                   /// LEFT CONTENT
-                  Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                    children: [
-
-                      Text(
-                        'Finance Overview',
-                        style:
-                            AppTextStyles.heading2,
-                      ),
-
-                      const SizedBox(height: 8),
-
-                      Text(
-                        'Complete overview of your financial health and analytics.',
-                        style:
-                            AppTextStyles.bodySmall,
-                      ),
-                    ],
+                  SizedBox(
+                    width:500,
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                      children: [
+                    
+                        Text(
+                          'Finance Overview',
+                          style:
+                              AppTextStyles.heading2,
+                        ),
+                    
+                        const SizedBox(height: 8),
+                    
+                        Text(
+                          'Complete overview of your financial health and analytics.',
+                          style:
+                              AppTextStyles.bodySmall,
+                        ),
+                      ],
+                    ),
                   ),
 
                   /// DATE FILTER
@@ -122,14 +125,16 @@ class FinanceOverviewPage extends StatelessWidget {
                     Text(
                       '₹2,45,000',
                       style:
-                          AppTextStyles.heading1,
+                          AppTextStyles.heading3,
                     ),
 
                     const SizedBox(height: 18),
 
-                    Row(
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 12,
+                      runSpacing: 10,
                       children: [
-
                         Container(
                           padding:
                               const EdgeInsets.symmetric(
@@ -211,17 +216,14 @@ class FinanceOverviewPage extends StatelessWidget {
               LayoutBuilder(
                 builder: (context, constraints) {
 
-                  int crossAxisCount = 2;
-
-                  if (constraints.maxWidth >
-                      1400) {
-                    crossAxisCount = 4;
-                  } else if (constraints
-                          .maxWidth >
-                      900) {
-                    crossAxisCount = 3;
-                  }
-
+                 int crossAxisCount = 1;
+                if (constraints.maxWidth > 1400) {
+                  crossAxisCount = 4;
+                } else if (constraints.maxWidth > 900) {
+                  crossAxisCount = 3;
+                } else if (constraints.maxWidth > 650) {
+                  crossAxisCount = 2;
+                }
                   return GridView.count(
                     shrinkWrap: true,
 

@@ -12,7 +12,15 @@ import '../features/tax/presentation/pages/tax_calculator_page.dart';
 import '../features/uploads/presentation/pages/upload_bills_page.dart';
 
 class TabletSidebar extends StatelessWidget {
-  const TabletSidebar({super.key});
+
+  final int currentIndex;
+  final Function(int) onItemSelected;
+
+  const TabletSidebar({
+    super.key,
+    required this.currentIndex,
+    required this.onItemSelected,
+  });
 
   @override
   Widget build(BuildContext context) {

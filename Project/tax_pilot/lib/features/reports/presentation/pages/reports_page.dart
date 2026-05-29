@@ -34,31 +34,36 @@ class ReportsPage extends StatelessWidget {
             children: [
 
               /// HEADER
-              Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                spacing: 16,
+                runSpacing: 16,
                 children: [
 
                   /// LEFT CONTENT
-                  Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                    children: [
+                  SizedBox(
+                    width: 500,
 
-                      Text(
-                        'Financial Reports',
-                        style:
-                            AppTextStyles.heading2,
-                      ),
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                      children: [
 
-                      const SizedBox(height: 8),
+                        Text(
+                          'Financial Reports',
+                          style:
+                              AppTextStyles.heading2,
+                        ),
 
-                      Text(
-                        'Generate and analyze financial, tax and AI-powered reports.',
-                        style:
-                            AppTextStyles.bodySmall,
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+
+                        Text(
+                          'Generate and analyze financial, tax and AI-powered reports.',
+                          style:
+                              AppTextStyles.bodySmall,
+                        ),
+                      ],
+                    ),
                   ),
 
                   /// EXPORT BUTTON
@@ -82,6 +87,9 @@ class ReportsPage extends StatelessWidget {
                     ),
 
                     child: Row(
+                      mainAxisSize:
+                          MainAxisSize.min,
+
                       children: [
 
                         const Icon(
@@ -121,65 +129,84 @@ class ReportsPage extends StatelessWidget {
               const SizedBox(height: 24),
 
               /// ANALYTICS GRID
-              GridView.count(
-                shrinkWrap: true,
+              LayoutBuilder(
+                builder: (context, constraints) {
 
-                physics:
-                    const NeverScrollableScrollPhysics(),
+                  int crossAxisCount = 1;
 
-                crossAxisCount: 2,
+                  if (constraints.maxWidth > 1400) {
+                    crossAxisCount = 4;
+                  } else if (constraints.maxWidth > 900) {
+                    crossAxisCount = 3;
+                  } else if (constraints.maxWidth > 650) {
+                    crossAxisCount = 2;
+                  }
 
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
+                  return GridView.count(
+                    shrinkWrap: true,
 
-                childAspectRatio: 1.35,
+                    physics:
+                        const NeverScrollableScrollPhysics(),
 
-                children: [
+                    crossAxisCount:
+                        crossAxisCount,
 
-                  _analyticsCard(
-                    title:
-                        'Reports Generated',
-                    value: '48',
-                    growth: '+12%',
-                    icon:
-                        Icons.analytics_outlined,
-                    iconColor:
-                        AppColors.chartPurple,
-                  ),
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
 
-                  _analyticsCard(
-                    title:
-                        'Tax Reports',
-                    value: '16',
-                    growth: '+5%',
-                    icon:
-                        Icons.receipt_long_outlined,
-                    iconColor:
-                        AppColors.taxHighlight,
-                  ),
+                    childAspectRatio:
+                        constraints.maxWidth < 650
+                            ? 1.05
+                            : 1.25,
 
-                  _analyticsCard(
-                    title:
-                        'AI Insights',
-                    value: '29',
-                    growth: '+18%',
-                    icon:
-                        Icons.auto_awesome,
-                    iconColor:
-                        AppColors.primary,
-                  ),
+                    children: [
+                      
+                      _analyticsCard(
+                        title:
+                            'Reports Generated',
+                        value: '48',
+                        growth: '+12%',
+                        icon:
+                            Icons.analytics_outlined, 
+                        iconColor:
+                            AppColors.chartPurple,
+                      ),
 
-                  _analyticsCard(
-                    title:
-                        'Exports',
-                    value: '74',
-                    growth: '+9%',
-                    icon:
-                        Icons.download_rounded,
-                    iconColor:
-                        AppColors.chartGreen,
-                  ),
-                ],
+                      _analyticsCard(
+                        title:
+                            'Tax Reports',
+                        value: '16',
+                        growth: '+5%',
+                        icon:
+                            Icons.receipt_long_outlined,
+                        iconColor:
+                            AppColors.taxHighlight,
+                      ),
+
+                      _analyticsCard(
+                        title:
+                            'AI Insights',
+                        value: '29',
+                        growth: '+18%',
+                        icon:
+                            Icons.auto_awesome,
+                        iconColor:
+                            AppColors.primary,
+                      ),
+
+                      _analyticsCard(
+                        title:
+                            'Exports',
+                        value: '74',
+                        growth: '+9%',
+                        icon:
+                            Icons.download_rounded,
+                        iconColor:
+                            AppColors.chartGreen,
+                      ),
+                    ],
+                  );
+                },
               ),
 
               const SizedBox(height: 36),
@@ -289,7 +316,7 @@ class ReportsPage extends StatelessWidget {
 
                       decoration: BoxDecoration(
                         color: AppColors.primary
-                            .withOpacity(0.12),
+                            .withValues(alpha: 0.12),
 
                         borderRadius:
                             BorderRadius.circular(
@@ -361,22 +388,22 @@ class ReportsPage extends StatelessWidget {
     return DashboardContainer(
       child: Column(
         crossAxisAlignment:
-            CrossAxisAlignment.start,
+            CrossAxisAlignment.center,
         children: [
 
           Row(
             mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                MainAxisAlignment.center,
             children: [
-
+              const SizedBox(height:14),
               Container(
                 padding:
                     const EdgeInsets.all(14),
 
                 decoration: BoxDecoration(
                   color:
-                      iconColor.withOpacity(
-                          0.12),
+                      iconColor.withValues(
+                          alpha: 0.12),
 
                   borderRadius:
                       BorderRadius.circular(
@@ -489,6 +516,8 @@ class ReportsPage extends StatelessWidget {
               ],
             ),
           ),
+
+          const SizedBox(width: 12),
 
           /// RIGHT CONTENT
           Column(

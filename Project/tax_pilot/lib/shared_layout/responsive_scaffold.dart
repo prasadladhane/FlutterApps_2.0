@@ -63,7 +63,10 @@ class ResponsiveScaffold extends StatelessWidget {
 
         drawer:
             showDrawer
-                ? const AppDrawer()
+                ? AppDrawer(
+                  currentIndex: 0,
+                  onItemSelected: (index) {},
+                )
                 : null,
 
         body: SafeArea(
@@ -89,7 +92,10 @@ class ResponsiveScaffold extends StatelessWidget {
           children: [
 
             /// SIDEBAR
-            const DesktopSidebar(),
+            DesktopSidebar(
+              currentIndex: 0,
+              onItemSelected: (index) {},
+            ),
 
             /// MAIN CONTENT
             Expanded(
@@ -114,7 +120,10 @@ class ResponsiveScaffold extends StatelessWidget {
         children: [
 
           /// DESKTOP SIDEBAR
-          const DesktopSidebar(),
+         DesktopSidebar(
+          currentIndex: 0,
+          onItemSelected: (index) {},
+        ),
 
           /// MAIN CONTENT
           Expanded(

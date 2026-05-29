@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import '../core/constants/app_colors.dart';
 import '../core/constants/app_text_styles.dart';
 
-import '../features/ai_assistant/presentation/pages/ai_assistant_page.dart';
-import '../features/dashboard/presentation/pages/dashboard_page.dart';
-import '../features/finance/presentation/pages/finance_overview_page.dart';
-import '../features/profile/presentation/pages/profile_page.dart';
-import '../features/reports/presentation/pages/reports_page.dart';
-import '../features/tax/presentation/pages/tax_calculator_page.dart';
-import '../features/uploads/presentation/pages/upload_bills_page.dart';
-
 class DesktopSidebar extends StatelessWidget {
-  const DesktopSidebar({super.key});
+
+  final int currentIndex;
+  final Function(int) onItemSelected;
+
+  const DesktopSidebar({
+    super.key,
+    required this.currentIndex,
+    required this.onItemSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,63 +34,50 @@ class DesktopSidebar extends StatelessWidget {
         child: Column(
           children: [
 
-            /// TOP LOGO SECTION
+            /// LOGO SECTION
             Container(
               width: double.infinity,
-
-              padding:
-                  const EdgeInsets.all(28),
+              padding: const EdgeInsets.all(28),
 
               child: Row(
                 children: [
 
-                  /// LOGO
                   Container(
                     width: 58,
                     height: 58,
 
-                    decoration:
-                        BoxDecoration(
-                      color:
-                          AppColors.primary,
-
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
                       borderRadius:
-                          BorderRadius.circular(
-                              20),
+                          BorderRadius.circular(20),
                     ),
 
                     child: const Icon(
                       Icons.auto_graph_rounded,
-                      color:
-                          Colors.white,
-                      size: 32,
+                      color: Colors.white,
+                      size: 30,
                     ),
                   ),
 
                   const SizedBox(width: 18),
 
-                  /// TITLE
                   Column(
                     crossAxisAlignment:
-                        CrossAxisAlignment
-                            .start,
+                        CrossAxisAlignment.start,
                     children: [
 
                       Text(
                         'TaxPilot',
                         style:
-                            AppTextStyles
-                                .heading3,
+                            AppTextStyles.heading3,
                       ),
 
-                      const SizedBox(
-                          height: 4),
+                      const SizedBox(height: 4),
 
                       Text(
                         'Finance Workspace',
                         style:
-                            AppTextStyles
-                                .bodySmall,
+                            AppTextStyles.bodySmall,
                       ),
                     ],
                   ),
@@ -98,19 +85,7 @@ class DesktopSidebar extends StatelessWidget {
               ),
             ),
 
-            /// DIVIDER
-            Container(
-              height: 1,
-              margin:
-                  const EdgeInsets.symmetric(
-                horizontal: 22,
-              ),
-              color: AppColors.divider,
-            ),
-
-            const SizedBox(height: 24),
-
-            /// MENU SECTION
+            /// MENU ITEMS
             Expanded(
               child: ListView(
                 padding:
@@ -122,192 +97,44 @@ class DesktopSidebar extends StatelessWidget {
 
                   _sidebarItem(
                     context: context,
+                    index: 0,
                     title: 'Dashboard',
                     icon:
                         Icons.dashboard_rounded,
-                    page:
-                        const DashboardPage(),
-                    isSelected: true,
                   ),
 
                   _sidebarItem(
                     context: context,
+                    index: 1,
                     title:
                         'Finance Overview',
                     icon:
                         Icons.account_balance_wallet_rounded,
-                    page:
-                        const FinanceOverviewPage(),
                   ),
 
                   _sidebarItem(
                     context: context,
+                    index: 2,
                     title:
                         'AI Assistant',
                     icon:
                         Icons.auto_awesome,
-                    page:
-                        const AiAssistantPage(),
                   ),
 
                   _sidebarItem(
                     context: context,
+                    index: 3,
                     title: 'Reports',
                     icon:
                         Icons.analytics_outlined,
-                    page:
-                        const ReportsPage(),
                   ),
 
                   _sidebarItem(
                     context: context,
-                    title:
-                        'Tax Calculator',
-                    icon:
-                        Icons.receipt_long_outlined,
-                    page:
-                        const TaxCalculatorPage(),
-                  ),
-
-                  _sidebarItem(
-                    context: context,
-                    title:
-                        'Upload Bills',
-                    icon:
-                        Icons.upload_file_rounded,
-                    page:
-                        const UploadBillsPage(),
-                  ),
-
-                  _sidebarItem(
-                    context: context,
-                    title:
-                        'Profile',
+                    index: 4,
+                    title: 'Profile',
                     icon:
                         Icons.person_outline_rounded,
-                    page:
-                        const ProfilePage(),
-                  ),
-                ],
-              ),
-            ),
-
-            /// BOTTOM USER SECTION
-            Container(
-              margin:
-                  const EdgeInsets.all(20),
-
-              padding:
-                  const EdgeInsets.all(18),
-
-              decoration:
-                  BoxDecoration(
-                color:
-                    AppColors.cardBackground,
-
-                borderRadius:
-                    BorderRadius.circular(
-                        24),
-
-                border: Border.all(
-                  color:
-                      AppColors.border,
-                ),
-              ),
-
-              child: Row(
-                children: [
-
-                  /// AVATAR
-                  Container(
-                    width: 54,
-                    height: 54,
-
-                    decoration:
-                        BoxDecoration(
-                      color: AppColors
-                          .primary
-                          .withOpacity(
-                              0.12),
-
-                      shape:
-                          BoxShape.circle,
-                    ),
-
-                    child: const Center(
-                      child: Text(
-                        'P',
-                        style: TextStyle(
-                          color:
-                              AppColors
-                                  .primary,
-                          fontWeight:
-                              FontWeight
-                                  .w700,
-                          fontSize: 22,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(width: 14),
-
-                  /// USER INFO
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment
-                              .start,
-                      children: [
-
-                        Text(
-                          'Prasad',
-                          style:
-                              AppTextStyles
-                                  .bodyMedium
-                                  .copyWith(
-                            fontWeight:
-                                FontWeight
-                                    .w600,
-                          ),
-                        ),
-
-                        const SizedBox(
-                            height: 4),
-
-                        Text(
-                          'Premium User',
-                          style:
-                              AppTextStyles
-                                  .bodySmall,
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  /// SETTINGS
-                  Container(
-                    padding:
-                        const EdgeInsets
-                            .all(10),
-
-                    decoration:
-                        BoxDecoration(
-                      color: AppColors
-                          .secondaryCardBackground,
-
-                      borderRadius:
-                          BorderRadius
-                              .circular(
-                                  14),
-                    ),
-
-                    child: const Icon(
-                      Icons.settings_outlined,
-                      color: AppColors
-                          .secondaryText,
-                      size: 20,
-                    ),
                   ),
                 ],
               ),
@@ -318,17 +145,19 @@ class DesktopSidebar extends StatelessWidget {
     );
   }
 
-  // =========================================================
+  // =======================================================
   // SIDEBAR ITEM
-  // =========================================================
+  // =======================================================
 
   Widget _sidebarItem({
     required BuildContext context,
+    required int index,
     required String title,
     required IconData icon,
-    required Widget page,
-    bool isSelected = false,
   }) {
+
+    final bool isSelected =
+        currentIndex == index;
 
     return Padding(
       padding:
@@ -342,15 +171,14 @@ class DesktopSidebar extends StatelessWidget {
 
         onTap: () {
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => page,
-            ),
-          );
+          onItemSelected(index);
         },
 
-        child: Container(
+        child: AnimatedContainer(
+          duration:
+              const Duration(
+                  milliseconds: 250),
+
           padding:
               const EdgeInsets.symmetric(
             horizontal: 18,
@@ -392,6 +220,7 @@ class DesktopSidebar extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
+
                   style:
                       AppTextStyles
                           .bodyMedium
@@ -411,15 +240,6 @@ class DesktopSidebar extends StatelessWidget {
                   ),
                 ),
               ),
-
-              if (isSelected)
-                const Icon(
-                  Icons
-                      .arrow_forward_ios_rounded,
-                  size: 16,
-                  color:
-                      AppColors.primary,
-                ),
             ],
           ),
         ),

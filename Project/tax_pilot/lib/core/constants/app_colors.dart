@@ -7,31 +7,33 @@ class AppColors {
   // PRIMARY BRAND COLORS
   // =========================================================
 
-  static const Color primary = Color.fromRGBO(41, 98, 255, 1);
+  static const Color primary =
+      Color.fromRGBO(30, 58, 95, 1);
 
-  static const Color primaryLight = Color.fromRGBO(76, 126, 255, 1);
+  static const Color primaryLight =
+      Color.fromRGBO(79, 124, 255, 1);
 
-  static const Color primaryDark = Color.fromRGBO(27, 74, 222, 1);
+  static const Color primaryDark =
+      Color.fromRGBO(22, 48, 71, 1);
 
   // =========================================================
   // MAIN BACKGROUND COLORS
   // =========================================================
 
-  // Whole app background
   static const Color scaffoldBackground =
-      Color.fromRGBO(10, 14, 20, 1);
+      Color.fromRGBO(245, 247, 251, 1);
 
-  // Sidebar background
   static const Color sidebarBackground =
-      Color.fromRGBO(15, 20, 28, 1);
+      Color.fromRGBO(255, 255, 255, 1);
 
-  // Main cards
   static const Color cardBackground =
-      Color.fromRGBO(20, 26, 35, 1);
+      Color.fromRGBO(255, 255, 255, 1);
 
-  // Secondary cards / hover sections
   static const Color secondaryCardBackground =
-      Color.fromRGBO(28, 34, 44, 1);
+      Color.fromRGBO(241, 244, 249, 1);
+
+  static const Color cardHover =
+      Color.fromRGBO(239, 243, 248, 1);
 
   // =========================================================
   // TEXT COLORS
@@ -41,42 +43,42 @@ class AppColors {
       Color.fromRGBO(255, 255, 255, 1);
 
   static const Color primaryText =
-      Color.fromRGBO(230, 236, 245, 1);
+      Color.fromRGBO(15, 23, 42, 1);
 
   static const Color secondaryText =
-      Color.fromRGBO(168, 178, 194, 1);
+      Color.fromRGBO(51, 65, 85, 1);
 
   static const Color hintText =
-      Color.fromRGBO(120, 130, 148, 1);
+      Color.fromRGBO(71, 85, 105, 1);
 
   static const Color disabledText =
-      Color.fromRGBO(90, 100, 115, 1);
+      Color.fromRGBO(100, 116, 139, 1);
 
   // =========================================================
   // INPUT FIELD COLORS
   // =========================================================
 
   static const Color textFieldFill =
-      Color.fromRGBO(16, 22, 30, 1);
+      Color.fromRGBO(255, 255, 255, 1);
 
   static const Color textFieldBorder =
-      Color.fromRGBO(43, 53, 68, 1);
+      Color.fromRGBO(226, 232, 240, 1);
 
   static const Color focusedBorder =
-      primary;
+      Color.fromRGBO(30, 58, 95, 1);
 
   // =========================================================
   // BUTTON COLORS
   // =========================================================
 
   static const Color buttonBackground =
-      primary;
+      Color.fromRGBO(30, 58, 95, 1);
 
   static const Color buttonHover =
-      Color.fromRGBO(59, 115, 255, 1);
+      Color.fromRGBO(79, 124, 255, 1);
 
   static const Color buttonDisabled =
-      Color.fromRGBO(60, 68, 82, 1);
+      Color.fromRGBO(203, 213, 225, 1);
 
   // =========================================================
   // STATUS COLORS
@@ -99,17 +101,24 @@ class AppColors {
   // =========================================================
 
   static const Color border =
-      Color.fromRGBO(38, 46, 58, 1);
+      Color.fromRGBO(226, 232, 240, 1);
 
   static const Color divider =
-      Color.fromRGBO(32, 39, 50, 1);
+      Color.fromRGBO(230, 235, 240, 1);
+
+  // =========================================================
+  // SIDEBAR COLORS
+  // =========================================================
+
+  static const Color sidebarSelected =
+      Color.fromRGBO(30, 58, 95, 0.10);
 
   // =========================================================
   // CHART COLORS
   // =========================================================
 
   static const Color chartBlue =
-      Color.fromRGBO(41, 98, 255, 1);
+      Color.fromRGBO(79, 124, 255, 1);
 
   static const Color chartGreen =
       Color.fromRGBO(16, 185, 129, 1);
@@ -135,7 +144,17 @@ class AppColors {
   // =========================================================
 
   static const Color shadow =
-      Color.fromRGBO(0, 0, 0, 0.25);
+      Color.fromRGBO(15, 23, 42, 0.06);
+
+  // =========================================================
+  // SHIMMER COLORS
+  // =========================================================
+
+  static const Color shimmerBase =
+      Color.fromRGBO(235, 239, 245, 1);
+
+  static const Color shimmerHighlight =
+      Color.fromRGBO(245, 247, 250, 1);
 
   // =========================================================
   // GLASS / OVERLAY EFFECTS
@@ -145,17 +164,5 @@ class AppColors {
       Color.fromRGBO(0, 0, 0, 0.55);
 
   static const Color glassEffect =
-      Color.fromRGBO(255, 255, 255, 0.04);
-
-      static const Color cardHover =
-    Color.fromRGBO(35, 42, 54, 1);
-
-static const Color sidebarSelected =
-    Color.fromRGBO(41, 98, 255, 0.18);
-
-static const Color shimmerBase =
-    Color.fromRGBO(35, 40, 50, 1);
-
-static const Color shimmerHighlight =
-    Color.fromRGBO(55, 60, 70, 1);
+      Color.fromRGBO(255, 255, 255, 0.55);
 }

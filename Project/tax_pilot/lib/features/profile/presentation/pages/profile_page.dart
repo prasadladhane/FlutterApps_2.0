@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../dashboard/presentation/widgets/dashboard_container.dart';
@@ -24,31 +23,36 @@ class ProfilePage extends StatelessWidget {
             children: [
 
               /// HEADER
-              Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                spacing: 16,
+                runSpacing: 16,
                 children: [
 
                   /// LEFT SIDE
-                  Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                    children: [
+                  SizedBox(
+                    width: 500,
 
-                      Text(
-                        'Profile Settings',
-                        style:
-                            AppTextStyles.heading2,
-                      ),
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                      children: [
 
-                      const SizedBox(height: 8),
+                        Text(
+                          'Profile Settings',
+                          style:
+                              AppTextStyles.heading2,
+                        ),
 
-                      Text(
-                        'Manage your TaxPilot account and preferences.',
-                        style:
-                            AppTextStyles.bodySmall,
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+
+                        Text(
+                          'Manage your TaxPilot account and preferences.',
+                          style:
+                              AppTextStyles.bodySmall,
+                        ),
+                      ],
+                    ),
                   ),
 
                   /// EDIT BUTTON
@@ -69,6 +73,8 @@ class ProfilePage extends StatelessWidget {
                     ),
 
                     child: Row(
+                      mainAxisSize:
+                          MainAxisSize.min,
                       children: [
 
                         const Icon(
@@ -101,7 +107,13 @@ class ProfilePage extends StatelessWidget {
               DashboardContainer(
                 padding: const EdgeInsets.all(30),
 
-                child: Row(
+                child: Wrap(
+                  spacing: 24,
+                  runSpacing: 24,
+                  alignment:
+                      WrapAlignment.center,
+                  crossAxisAlignment:
+                      WrapCrossAlignment.center,
                   children: [
 
                     /// PROFILE IMAGE
@@ -110,18 +122,19 @@ class ProfilePage extends StatelessWidget {
                       isPremium: true,
                     ),
 
-                    const SizedBox(width: 24),
-
                     /// USER INFO
-                    Expanded(
+                    SizedBox(
+                      width: 320,
+
                       child: Column(
                         crossAxisAlignment:
-                            CrossAxisAlignment
-                                .start,
+                            CrossAxisAlignment.center,
                         children: [
 
                           Text(
                             'Prasad Ladhane',
+                            textAlign:
+                                TextAlign.center,
                             style:
                                 AppTextStyles
                                     .heading3,
@@ -132,6 +145,8 @@ class ProfilePage extends StatelessWidget {
 
                           Text(
                             'Flutter Developer • Freelancer • Finance Enthusiast',
+                            textAlign:
+                                TextAlign.center,
                             style:
                                 AppTextStyles
                                     .bodySmall
@@ -146,6 +161,8 @@ class ProfilePage extends StatelessWidget {
                           Wrap(
                             spacing: 12,
                             runSpacing: 12,
+                            alignment:
+                                WrapAlignment.center,
                             children: [
 
                               _profileChip(
@@ -311,32 +328,80 @@ class ProfilePage extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              Row(
-                children: [
+              LayoutBuilder(
+                builder: (context, constraints) {
 
-                  Expanded(
-                    child: _actionButton(
-                      title: 'Logout',
-                      icon:
-                          Icons.logout_rounded,
-                      color:
-                          AppColors.warning,
-                    ),
-                  ),
+                  final bool isMobile =
+                      constraints.maxWidth < 650;
 
-                  const SizedBox(width: 18),
+                  return isMobile
 
-                  Expanded(
-                    child: _actionButton(
-                      title:
-                          'Delete Account',
-                      icon:
-                          Icons.delete_outline_rounded,
-                      color:
-                          AppColors.error,
-                    ),
-                  ),
-                ],
+                      ? Column(
+                          children: [
+
+                            SizedBox(
+                              width:
+                                  double.infinity,
+
+                              child: _actionButton(
+                                title:
+                                    'Logout',
+                                icon:
+                                    Icons.logout_rounded,
+                                color:
+                                    AppColors.warning,
+                              ),
+                            ),
+
+                            const SizedBox(
+                                height: 18),
+
+                            SizedBox(
+                              width:
+                                  double.infinity,
+
+                              child: _actionButton(
+                                title:
+                                    'Delete Account',
+                                icon:
+                                    Icons.delete_outline_rounded,
+                                color:
+                                    AppColors.error,
+                              ),
+                            ),
+                          ],
+                        )
+
+                      : Row(
+                          children: [
+
+                            Expanded(
+                              child: _actionButton(
+                                title:
+                                    'Logout',
+                                icon:
+                                    Icons.logout_rounded,
+                                color:
+                                    AppColors.warning,
+                              ),
+                            ),
+
+                            const SizedBox(
+                                width: 18),
+
+                            Expanded(
+                              child: _actionButton(
+                                title:
+                                    'Delete Account',
+                                icon:
+                                    Icons.delete_outline_rounded,
+                                color:
+                                    AppColors.error,
+                              ),
+                            ),
+                          ],
+                        );
+                },
               ),
             ],
           ),
@@ -507,14 +572,18 @@ class ProfilePage extends StatelessWidget {
 
           const SizedBox(width: 10),
 
-          Text(
-            title,
-            style:
-                AppTextStyles.bodyMedium
-                    .copyWith(
-              color: color,
-              fontWeight:
-                  FontWeight.w600,
+          Flexible(
+            child: Text(
+              title,
+              overflow:
+                  TextOverflow.ellipsis,
+              style:
+                  AppTextStyles.bodyMedium
+                      .copyWith(
+                color: color,
+                fontWeight:
+                    FontWeight.w600,
+              ),
             ),
           ),
         ],
