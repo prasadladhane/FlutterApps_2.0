@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../core/constants/app_colors.dart';
-
 import '../features/ai_assistant/presentation/pages/ai_assistant_page.dart';
 import '../features/dashboard/presentation/pages/dashboard_page.dart';
 import '../features/finance/presentation/pages/finance_overview_page.dart';
