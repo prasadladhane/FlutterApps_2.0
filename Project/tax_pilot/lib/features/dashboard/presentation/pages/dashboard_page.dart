@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tax_pilot/core/router/app_router.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -53,14 +54,22 @@ class DashboardPage extends StatelessWidget {
                         child: const Icon(Icons.notifications_none_rounded),
                       ),
                       const SizedBox(width: 12),
-                      const CircleAvatar(
-                        radius: 22,
-                        backgroundColor: Color(0xFF1E3A5F),
-                        child: Icon(
-                          Icons.person,
-                          color: Colors.white,
-                        ),
-                      ),
+                     GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context,
+                        AppRouter.dashboard,
+                        arguments: 4,
+                      );
+                    },
+                    child: const CircleAvatar(
+                    radius: 22,
+                    backgroundColor: Color(0xFF1E3A5F),
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
+                  ),
+                  ),
                     ],
                   ),
                 ],

@@ -30,36 +30,45 @@ class ExpensePage extends StatelessWidget {
           padding: const EdgeInsets.all(24),
 
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
             children: [
 
               /// PAGE HEADER
-              Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+              Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                alignment:
+                    WrapAlignment.spaceBetween,
+                crossAxisAlignment:
+                    WrapCrossAlignment.center,
                 children: [
 
                   /// LEFT SIDE
-                  Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                    children: [
+                  SizedBox(
+                    width: 500,
 
-                      Text(
-                        'Expense Manager',
-                        style:
-                            AppTextStyles.heading2,
-                      ),
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                      children: [
 
-                      const SizedBox(height: 8),
+                        Text(
+                          'Expense Manager',
+                          style:
+                              AppTextStyles.heading2,
+                        ),
 
-                      Text(
-                        'Track and manage your spending '
-                        'efficiently with AI-powered insights.',
-                        style:
-                            AppTextStyles.bodySmall,
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+
+                        Text(
+                          'Track and manage your spending '
+                          'efficiently with AI-powered insights.',
+                          style:
+                              AppTextStyles.bodySmall,
+                        ),
+                      ],
+                    ),
                   ),
 
                   /// FILTER BUTTON
@@ -83,11 +92,15 @@ class ExpensePage extends StatelessWidget {
                     ),
 
                     child: Row(
+                      mainAxisSize:
+                          MainAxisSize.min,
                       children: [
 
                         const Icon(
-                          Icons.filter_alt_outlined,
-                          color: AppColors.primary,
+                          Icons
+                              .filter_alt_outlined,
+                          color:
+                              AppColors.primary,
                         ),
 
                         const SizedBox(width: 10),
@@ -95,7 +108,8 @@ class ExpensePage extends StatelessWidget {
                         Text(
                           'Filters',
                           style:
-                              AppTextStyles.bodySmall
+                              AppTextStyles
+                                  .bodySmall
                                   .copyWith(
                             color:
                                 AppColors.primary,
@@ -121,49 +135,74 @@ class ExpensePage extends StatelessWidget {
               const SizedBox(height: 24),
 
               /// ANALYTICS CARDS
-              Row(
-                children: [
+              LayoutBuilder(
+                builder:
+                    (context, constraints) {
 
-                  Expanded(
-                    child: _analyticsCard(
-                      title: 'Total Expenses',
-                      value: '₹35,000',
-                      growth: '+12%',
-                      icon:
-                          Icons.account_balance_wallet,
-                      iconColor:
-                          AppColors.chartOrange,
-                    ),
-                  ),
+                  int crossAxisCount = 1;
 
-                  const SizedBox(width: 18),
+                  if (constraints.maxWidth >
+                      1100) {
+                    crossAxisCount = 3;
+                  } else if (constraints
+                          .maxWidth >
+                      700) {
+                    crossAxisCount = 2;
+                  }
 
-                  Expanded(
-                    child: _analyticsCard(
-                      title: 'Tax Deductible',
-                      value: '₹8,500',
-                      growth: '+4%',
-                      icon:
-                          Icons.receipt_long_outlined,
-                      iconColor:
-                          AppColors.taxHighlight,
-                    ),
-                  ),
+                  return GridView.count(
+                    shrinkWrap: true,
 
-                  const SizedBox(width: 18),
+                    physics:
+                        const NeverScrollableScrollPhysics(),
 
-                  Expanded(
-                    child: _analyticsCard(
-                      title: 'Pending Bills',
-                      value: '6',
-                      growth: '+2',
-                      icon:
-                          Icons.pending_actions_rounded,
-                      iconColor:
-                          AppColors.warning,
-                    ),
-                  ),
-                ],
+                    crossAxisCount:
+                        crossAxisCount,
+
+                    crossAxisSpacing: 18,
+                    mainAxisSpacing: 18,
+
+                    childAspectRatio: 1.28,
+
+                    children: [
+
+                      _analyticsCard(
+                        title:
+                            'Total Expenses',
+                        value: '₹35,000',
+                        growth: '+12%',
+                        icon: Icons
+                            .account_balance_wallet,
+                        iconColor:
+                            AppColors
+                                .chartOrange,
+                      ),
+
+                      _analyticsCard(
+                        title:
+                            'Tax Deductible',
+                        value: '₹8,500',
+                        growth: '+4%',
+                        icon: Icons
+                            .receipt_long_outlined,
+                        iconColor:
+                            AppColors
+                                .taxHighlight,
+                      ),
+
+                      _analyticsCard(
+                        title:
+                            'Pending Bills',
+                        value: '6',
+                        growth: '+2',
+                        icon: Icons
+                            .pending_actions_rounded,
+                        iconColor:
+                            AppColors.warning,
+                      ),
+                    ],
+                  );
+                },
               ),
 
               const SizedBox(height: 36),
@@ -184,12 +223,15 @@ class ExpensePage extends StatelessWidget {
                 children: [
 
                   _expenseTile(
-                    title: 'Adobe Subscription',
+                    title:
+                        'Adobe Subscription',
                     category: 'Software',
                     amount: '- ₹2,499',
                     date: 'Today',
-                    icon: Icons.design_services_outlined,
-                    iconColor: AppColors.primary,
+                    icon: Icons
+                        .design_services_outlined,
+                    iconColor:
+                        AppColors.primary,
                   ),
 
                   const SizedBox(height: 18),
@@ -200,7 +242,8 @@ class ExpensePage extends StatelessWidget {
                     amount: '- ₹1,200',
                     date: 'Yesterday',
                     icon: Icons.wifi_rounded,
-                    iconColor: AppColors.chartBlue,
+                    iconColor:
+                        AppColors.chartBlue,
                   ),
 
                   const SizedBox(height: 18),
@@ -210,8 +253,10 @@ class ExpensePage extends StatelessWidget {
                     category: 'Hardware',
                     amount: '- ₹4,500',
                     date: '2 days ago',
-                    icon: Icons.laptop_mac_rounded,
-                    iconColor: AppColors.chartOrange,
+                    icon:
+                        Icons.laptop_mac_rounded,
+                    iconColor:
+                        AppColors.chartOrange,
                   ),
 
                   const SizedBox(height: 18),
@@ -221,8 +266,10 @@ class ExpensePage extends StatelessWidget {
                     category: 'Workspace',
                     amount: '- ₹12,000',
                     date: 'This Week',
-                    icon: Icons.home_work_outlined,
-                    iconColor: AppColors.chartPurple,
+                    icon:
+                        Icons.home_work_outlined,
+                    iconColor:
+                        AppColors.chartPurple,
                   ),
                 ],
               ),
@@ -246,58 +293,78 @@ class ExpensePage extends StatelessWidget {
   }) {
 
     return DashboardContainer(
-      child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
-        children: [
+      child: SizedBox(
+        height: double.infinity,
 
-          Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
-            children: [
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.start,
+          mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
+          children: [
 
-              Container(
-                padding: const EdgeInsets.all(14),
+            Row(
+              mainAxisAlignment:
+                  MainAxisAlignment
+                      .spaceBetween,
+              children: [
 
-                decoration: BoxDecoration(
-                  color:
-                      iconColor.withOpacity(0.12),
+                Container(
+                  padding:
+                      const EdgeInsets.all(14),
 
-                  borderRadius:
-                      BorderRadius.circular(18),
+                  decoration: BoxDecoration(
+                    color:
+                        iconColor.withOpacity(
+                            0.12),
+
+                    borderRadius:
+                        BorderRadius.circular(
+                            18),
+                  ),
+
+                  child: Icon(
+                    icon,
+                    color: iconColor,
+                  ),
                 ),
 
-                child: Icon(
-                  icon,
-                  color: iconColor,
+                Text(
+                  growth,
+                  style: AppTextStyles
+                      .bodySmall
+                      .copyWith(
+                    color:
+                        AppColors.success,
+                    fontWeight:
+                        FontWeight.w600,
+                  ),
                 ),
-              ),
+              ],
+            ),
 
-              Text(
-                growth,
-                style:
-                    AppTextStyles.bodySmall.copyWith(
-                  color: AppColors.success,
-                  fontWeight: FontWeight.w600,
+            Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+              children: [
+
+                Text(
+                  value,
+                  style:
+                      AppTextStyles.heading3,
                 ),
-              ),
-            ],
-          ),
 
-          const SizedBox(height: 22),
+                const SizedBox(height: 8),
 
-          Text(
-            value,
-            style: AppTextStyles.heading3,
-          ),
-
-          const SizedBox(height: 8),
-
-          Text(
-            title,
-            style: AppTextStyles.bodySmall,
-          ),
-        ],
+                Text(
+                  title,
+                  style:
+                      AppTextStyles.bodySmall,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -325,7 +392,8 @@ class ExpensePage extends StatelessWidget {
             height: 58,
 
             decoration: BoxDecoration(
-              color: iconColor.withOpacity(0.12),
+              color:
+                  iconColor.withOpacity(0.12),
 
               borderRadius:
                   BorderRadius.circular(18),
@@ -371,9 +439,9 @@ class ExpensePage extends StatelessWidget {
 
               Text(
                 amount,
-                style:
-                    AppTextStyles.bodyMedium
-                        .copyWith(
+                style: AppTextStyles
+                    .bodyMedium
+                    .copyWith(
                   color: AppColors.error,
                   fontWeight:
                       FontWeight.w700,

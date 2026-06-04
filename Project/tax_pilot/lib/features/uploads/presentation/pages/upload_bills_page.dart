@@ -39,93 +39,131 @@ class UploadBillsPage extends StatelessWidget {
             children: [
 
               /// HEADER
-              Row(
-                mainAxisAlignment:
-                    MainAxisAlignment
-                        .spaceBetween,
-                children: [
+              LayoutBuilder(
+                builder:
+                    (context, constraints) {
 
-                  /// LEFT CONTENT
-                  Column(
+                  final bool isMobile =
+                      constraints.maxWidth <
+                          700;
+
+                  return Wrap(
+                    spacing: 16,
+                    runSpacing: 16,
+
+                    alignment:
+                        WrapAlignment
+                            .spaceBetween,
+
                     crossAxisAlignment:
-                        CrossAxisAlignment
-                            .start,
+                        WrapCrossAlignment
+                            .center,
+
                     children: [
 
-                      Text(
-                        'Upload Bills',
-                        style:
-                            AppTextStyles
-                                .heading2,
+                      /// LEFT CONTENT
+                      SizedBox(
+                        width: isMobile
+                            ? constraints
+                                .maxWidth
+                            : constraints
+                                    .maxWidth *
+                                0.65,
+
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment
+                                  .start,
+                          children: [
+
+                            Text(
+                              'Upload Bills',
+                              style:
+                                  AppTextStyles
+                                      .heading2,
+                            ),
+
+                            const SizedBox(
+                                height: 8),
+
+                            Text(
+                              'Upload invoices, receipts and financial documents securely.',
+                              style:
+                                  AppTextStyles
+                                      .bodySmall,
+                            ),
+                          ],
+                        ),
                       ),
 
-                      const SizedBox(
-                          height: 8),
+                      /// AI OCR BADGE
+                      Container(
+                        padding:
+                            const EdgeInsets
+                                .symmetric(
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
 
-                      Text(
-                        'Upload invoices, receipts and financial documents securely.',
-                        style:
-                            AppTextStyles
-                                .bodySmall,
+                        decoration:
+                            BoxDecoration(
+                          color: AppColors
+                              .primary
+                              .withValues(
+                                  alpha: 0.12),
+
+                          borderRadius:
+                              BorderRadius
+                                  .circular(
+                                      30),
+                        ),
+
+                        child: Row(
+                          mainAxisSize:
+                              MainAxisSize
+                                  .min,
+                          children: [
+
+                            const Icon(
+                              Icons
+                                  .auto_awesome,
+                              size: 18,
+                              color:
+                                  AppColors
+                                      .primary,
+                            ),
+
+                            const SizedBox(
+                                width: 8),
+
+                            Flexible(
+                              child: Text(
+                                'AI OCR Enabled',
+
+                                overflow:
+                                    TextOverflow
+                                        .ellipsis,
+
+                                style:
+                                    AppTextStyles
+                                        .bodySmall
+                                        .copyWith(
+                                  color:
+                                      AppColors
+                                          .primary,
+
+                                  fontWeight:
+                                      FontWeight
+                                          .w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
-                  ),
-
-                  /// AI OCR BADGE
-                  Container(
-                    padding:
-                        const EdgeInsets
-                            .symmetric(
-                      horizontal: 16,
-                      vertical: 10,
-                    ),
-
-                    decoration:
-                        BoxDecoration(
-                      color: AppColors
-                          .primary
-                          .withOpacity(
-                              0.12),
-
-                      borderRadius:
-                          BorderRadius
-                              .circular(
-                                  30),
-                    ),
-
-                    child: Row(
-                      children: [
-
-                        const Icon(
-                          Icons
-                              .auto_awesome,
-                          size: 18,
-                          color:
-                              AppColors
-                                  .primary,
-                        ),
-
-                        const SizedBox(
-                            width: 8),
-
-                        Text(
-                          'AI OCR Enabled',
-                          style:
-                              AppTextStyles
-                                  .bodySmall
-                                  .copyWith(
-                            color:
-                                AppColors
-                                    .primary,
-                            fontWeight:
-                                FontWeight
-                                    .w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
 
               const SizedBox(height: 36),
@@ -157,8 +195,8 @@ class UploadBillsPage extends StatelessWidget {
                           BoxDecoration(
                         color: AppColors
                             .primary
-                            .withOpacity(
-                                0.12),
+                            .withValues(
+                                alpha: 0.12),
 
                         shape:
                             BoxShape.circle,
@@ -183,6 +221,8 @@ class UploadBillsPage extends StatelessWidget {
                       style:
                           AppTextStyles
                               .heading3,
+                      textAlign:
+                          TextAlign.center,
                     ),
 
                     const SizedBox(
@@ -191,8 +231,10 @@ class UploadBillsPage extends StatelessWidget {
                     /// SUBTITLE
                     Text(
                       'Upload PDFs, invoices, receipts or screenshots for AI processing.',
+
                       textAlign:
                           TextAlign.center,
+
                       style:
                           AppTextStyles
                               .bodySmall
@@ -208,16 +250,21 @@ class UploadBillsPage extends StatelessWidget {
                     Wrap(
                       spacing: 16,
                       runSpacing: 16,
+
                       alignment:
                           WrapAlignment
                               .center,
+
                       children: [
 
                         _actionButton(
                           title:
                               'Choose Files',
+
                           icon:
-                              Icons.folder_open_rounded,
+                              Icons
+                                  .folder_open_rounded,
+
                           isPrimary:
                               true,
                         ),
@@ -225,8 +272,11 @@ class UploadBillsPage extends StatelessWidget {
                         _actionButton(
                           title:
                               'Open Camera',
+
                           icon:
-                              Icons.camera_alt_outlined,
+                              Icons
+                                  .camera_alt_outlined,
+
                           isPrimary:
                               false,
                         ),
@@ -242,71 +292,140 @@ class UploadBillsPage extends StatelessWidget {
               DashboardSectionTitle(
                 title:
                     'AI Processing Features',
+
                 subtitle:
                     'Smart analysis performed after upload.',
               ),
 
               const SizedBox(height: 24),
 
-              GridView.count(
-                shrinkWrap: true,
+              LayoutBuilder(
+                builder:
+                    (context, constraints) {
 
-                physics:
-                    const NeverScrollableScrollPhysics(),
+                  int crossAxisCount =
+                      1;
 
-                crossAxisCount: 2,
+                  if (constraints
+                          .maxWidth >=
+                      1200) {
 
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
+                    crossAxisCount = 4;
 
-                childAspectRatio: 1.45,
+                  } else if (constraints
+                          .maxWidth >=
+                      900) {
 
-                children: [
+                    crossAxisCount = 3;
 
-                  _featureCard(
-                    title:
-                        'OCR Extraction',
-                    subtitle:
-                        'Automatically extract text and bill details.',
-                    icon:
-                        Icons.document_scanner_outlined,
-                    color:
-                        AppColors.primary,
-                  ),
+                  } else if (constraints
+                          .maxWidth >=
+                      600) {
 
-                  _featureCard(
-                    title:
-                        'Expense Categorization',
-                    subtitle:
-                        'AI categorizes expenses intelligently.',
-                    icon:
-                        Icons.category_outlined,
-                    color:
-                        AppColors.chartOrange,
-                  ),
+                    crossAxisCount = 2;
+                  }
 
-                  _featureCard(
-                    title:
-                        'Tax Detection',
-                    subtitle:
-                        'Identify GST and tax-related entries.',
-                    icon:
-                        Icons.receipt_long_outlined,
-                    color:
-                        AppColors.taxHighlight,
-                  ),
+                  return GridView.builder(
+                    shrinkWrap: true,
 
-                  _featureCard(
-                    title:
-                        'Fraud Detection',
-                    subtitle:
-                        'AI detects suspicious or duplicate invoices.',
-                    icon:
-                        Icons.security_outlined,
-                    color:
-                        AppColors.error,
-                  ),
-                ],
+                    physics:
+                        const NeverScrollableScrollPhysics(),
+
+                    itemCount: 4,
+
+                    gridDelegate:
+                        SliverGridDelegateWithFixedCrossAxisCount(
+
+                      crossAxisCount:
+                          crossAxisCount,
+
+                      crossAxisSpacing:
+                          20,
+
+                      mainAxisSpacing:
+                          20,
+
+                      childAspectRatio:
+                          constraints.maxWidth <
+                                  600
+                              ? 1.05
+                              : 1.25,
+                    ),
+
+                    itemBuilder:
+                        (context, index) {
+
+                      final items = [
+
+                        _featureCard(
+                          title:
+                              'OCR Extraction',
+
+                          subtitle:
+                              'Automatically extract text and bill details.',
+
+                          icon:
+                              Icons
+                                  .document_scanner_outlined,
+
+                          color:
+                              AppColors
+                                  .primary,
+                        ),
+
+                        _featureCard(
+                          title:
+                              'Expense Categorization',
+
+                          subtitle:
+                              'AI categorizes expenses intelligently.',
+
+                          icon:
+                              Icons
+                                  .category_outlined,
+
+                          color:
+                              AppColors
+                                  .chartOrange,
+                        ),
+
+                        _featureCard(
+                          title:
+                              'Tax Detection',
+
+                          subtitle:
+                              'Identify GST and tax-related entries.',
+
+                          icon:
+                              Icons
+                                  .receipt_long_outlined,
+
+                          color:
+                              AppColors
+                                  .taxHighlight,
+                        ),
+
+                        _featureCard(
+                          title:
+                              'Fraud Detection',
+
+                          subtitle:
+                              'AI detects suspicious or duplicate invoices.',
+
+                          icon:
+                              Icons
+                                  .security_outlined,
+
+                          color:
+                              AppColors
+                                  .error,
+                        ),
+                      ];
+
+                      return items[index];
+                    },
+                  );
+                },
               ),
 
               const SizedBox(height: 36),
@@ -315,10 +434,13 @@ class UploadBillsPage extends StatelessWidget {
               DashboardSectionTitle(
                 title:
                     'Recent Uploads',
+
                 subtitle:
                     'Recently uploaded bills and invoices.',
+
                 actionText:
                     'View All',
+
                 onActionTap: () {},
               ),
 
@@ -330,16 +452,23 @@ class UploadBillsPage extends StatelessWidget {
                   _uploadTile(
                     fileName:
                         'Freelance_Invoice_March.pdf',
+
                     fileSize:
                         '2.4 MB',
+
                     uploadTime:
                         'Today',
+
                     status:
                         'Processed',
+
                     statusColor:
                         AppColors.success,
+
                     icon:
-                        Icons.picture_as_pdf_outlined,
+                        Icons
+                            .picture_as_pdf_outlined,
+
                     iconColor:
                         AppColors.error,
                   ),
@@ -350,16 +479,22 @@ class UploadBillsPage extends StatelessWidget {
                   _uploadTile(
                     fileName:
                         'Office_Rent_Receipt.jpg',
+
                     fileSize:
                         '1.2 MB',
+
                     uploadTime:
                         'Yesterday',
+
                     status:
                         'Analyzing',
+
                     statusColor:
                         AppColors.warning,
+
                     icon:
                         Icons.image_outlined,
+
                     iconColor:
                         AppColors.chartPurple,
                   ),
@@ -370,16 +505,23 @@ class UploadBillsPage extends StatelessWidget {
                   _uploadTile(
                     fileName:
                         'Internet_Bill_April.pdf',
+
                     fileSize:
                         '980 KB',
+
                     uploadTime:
                         '2 days ago',
+
                     status:
                         'Completed',
+
                     statusColor:
                         AppColors.success,
+
                     icon:
-                        Icons.receipt_long_outlined,
+                        Icons
+                            .receipt_long_outlined,
+
                     iconColor:
                         AppColors.taxHighlight,
                   ),
@@ -440,17 +582,25 @@ class UploadBillsPage extends StatelessWidget {
 
           const SizedBox(width: 10),
 
-          Text(
-            title,
-            style:
-                AppTextStyles.bodyMedium
-                    .copyWith(
-              color: isPrimary
-                  ? Colors.white
-                  : AppColors
-                      .primaryText,
-              fontWeight:
-                  FontWeight.w600,
+          Flexible(
+            child: Text(
+              title,
+
+              overflow:
+                  TextOverflow.ellipsis,
+
+              style:
+                  AppTextStyles
+                      .bodyMedium
+                      .copyWith(
+                color: isPrimary
+                    ? Colors.white
+                    : AppColors
+                        .primaryText,
+
+                fontWeight:
+                    FontWeight.w600,
+              ),
             ),
           ),
         ],
@@ -473,6 +623,10 @@ class UploadBillsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment:
             CrossAxisAlignment.start,
+
+        mainAxisAlignment:
+            MainAxisAlignment.start,
+
         children: [
 
           Container(
@@ -496,22 +650,49 @@ class UploadBillsPage extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 22),
+          const SizedBox(height: 18),
 
-          Text(
-            title,
-            style:
-                AppTextStyles.cardTitle,
-          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment
+                      .start,
 
-          const SizedBox(height: 8),
+              children: [
 
-          Text(
-            subtitle,
-            style:
-                AppTextStyles.bodySmall
-                    .copyWith(
-              height: 1.5,
+                Text(
+                  title,
+
+                  maxLines: 2,
+
+                  overflow:
+                      TextOverflow
+                          .ellipsis,
+
+                  style:
+                      AppTextStyles
+                          .cardTitle,
+                ),
+
+                const SizedBox(
+                    height: 8),
+
+                Expanded(
+                  child: Text(
+                    subtitle,
+
+                    overflow:
+                        TextOverflow.fade,
+
+                    style:
+                        AppTextStyles
+                            .bodySmall
+                            .copyWith(
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -534,92 +715,247 @@ class UploadBillsPage extends StatelessWidget {
   }) {
 
     return DashboardContainer(
-      child: Row(
-        children: [
+      child: LayoutBuilder(
+        builder:
+            (context, constraints) {
 
-          /// ICON
-          Container(
-            width: 58,
-            height: 58,
+          final bool isMobile =
+              constraints.maxWidth <
+                  650;
 
-            decoration:
-                BoxDecoration(
-              color:
-                  iconColor.withOpacity(
-                      0.12),
+          return isMobile
 
-              borderRadius:
-                  BorderRadius.circular(
-                      18),
-            ),
+              /// MOBILE VIEW
+              ? Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment
+                          .start,
+                  children: [
 
-            child: Icon(
-              icon,
-              color: iconColor,
-            ),
-          ),
+                    Row(
+                      children: [
 
-          const SizedBox(width: 18),
+                        Container(
+                          width: 58,
+                          height: 58,
 
-          /// FILE DETAILS
-          Expanded(
-            child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment
-                      .start,
-              children: [
+                          decoration:
+                              BoxDecoration(
+                            color: iconColor
+                                .withOpacity(
+                                    0.12),
 
-                Text(
-                  fileName,
-                  style:
-                      AppTextStyles
-                          .cardTitle,
-                ),
+                            borderRadius:
+                                BorderRadius
+                                    .circular(
+                                        18),
+                          ),
 
-                const SizedBox(height: 6),
+                          child: Icon(
+                            icon,
+                            color:
+                                iconColor,
+                          ),
+                        ),
 
-                Text(
-                  '$fileSize • $uploadTime',
-                  style:
-                      AppTextStyles
-                          .bodySmall,
-                ),
-              ],
-            ),
-          ),
+                        const SizedBox(
+                            width: 18),
 
-          /// STATUS BADGE
-          Container(
-            padding:
-                const EdgeInsets.symmetric(
-              horizontal: 14,
-              vertical: 8,
-            ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment:
+                                CrossAxisAlignment
+                                    .start,
+                            children: [
 
-            decoration:
-                BoxDecoration(
-              color:
-                  statusColor.withOpacity(
-                      0.12),
+                              Text(
+                                fileName,
 
-              borderRadius:
-                  BorderRadius.circular(
-                      30),
-            ),
+                                maxLines:
+                                    2,
 
-            child: Text(
-              status,
-              style:
-                  AppTextStyles
-                      .bodySmall
-                      .copyWith(
-                color: statusColor,
-                fontWeight:
-                    FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
+                                overflow:
+                                    TextOverflow
+                                        .ellipsis,
+
+                                style:
+                                    AppTextStyles
+                                        .cardTitle,
+                              ),
+
+                              const SizedBox(
+                                  height:
+                                      6),
+
+                              Text(
+                                '$fileSize • $uploadTime',
+
+                                style:
+                                    AppTextStyles
+                                        .bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(
+                        height: 16),
+
+                    Align(
+                      alignment:
+                          Alignment
+                              .centerLeft,
+
+                      child: Container(
+                        padding:
+                            const EdgeInsets
+                                .symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
+
+                        decoration:
+                            BoxDecoration(
+                          color:
+                              statusColor
+                                  .withOpacity(
+                                      0.12),
+
+                          borderRadius:
+                              BorderRadius
+                                  .circular(
+                                      30),
+                        ),
+
+                        child: Text(
+                          status,
+
+                          style:
+                              AppTextStyles
+                                  .bodySmall
+                                  .copyWith(
+                            color:
+                                statusColor,
+
+                            fontWeight:
+                                FontWeight
+                                    .w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+
+              /// DESKTOP VIEW
+              : Row(
+                  children: [
+
+                    Container(
+                      width: 58,
+                      height: 58,
+
+                      decoration:
+                          BoxDecoration(
+                        color: iconColor
+                            .withOpacity(
+                                0.12),
+
+                        borderRadius:
+                            BorderRadius
+                                .circular(
+                                    18),
+                      ),
+
+                      child: Icon(
+                        icon,
+                        color:
+                            iconColor,
+                      ),
+                    ),
+
+                    const SizedBox(
+                        width: 18),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment:
+                            CrossAxisAlignment
+                                .start,
+                        children: [
+
+                          Text(
+                            fileName,
+
+                            maxLines: 1,
+
+                            overflow:
+                                TextOverflow
+                                    .ellipsis,
+
+                            style:
+                                AppTextStyles
+                                    .cardTitle,
+                          ),
+
+                          const SizedBox(
+                              height: 6),
+
+                          Text(
+                            '$fileSize • $uploadTime',
+
+                            style:
+                                AppTextStyles
+                                    .bodySmall,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(
+                        width: 16),
+
+                    Container(
+                      padding:
+                          const EdgeInsets
+                              .symmetric(
+                        horizontal: 14,
+                        vertical: 8,
+                      ),
+
+                      decoration:
+                          BoxDecoration(
+                        color: statusColor
+                            .withOpacity(
+                                0.12),
+
+                        borderRadius:
+                            BorderRadius
+                                .circular(
+                                    30),
+                      ),
+
+                      child: Text(
+                        status,
+
+                        style:
+                            AppTextStyles
+                                .bodySmall
+                                .copyWith(
+                          color:
+                              statusColor,
+
+                          fontWeight:
+                              FontWeight
+                                  .w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+        },
       ),
     );
   }

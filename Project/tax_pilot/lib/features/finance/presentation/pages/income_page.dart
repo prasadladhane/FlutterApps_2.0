@@ -30,35 +30,44 @@ class IncomePage extends StatelessWidget {
           padding: const EdgeInsets.all(24),
 
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
             children: [
 
               /// PAGE HEADER
-              Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+              Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                alignment:
+                    WrapAlignment.spaceBetween,
+                crossAxisAlignment:
+                    WrapCrossAlignment.center,
                 children: [
 
                   /// LEFT SECTION
-                  Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                    children: [
+                  SizedBox(
+                    width: 500,
 
-                      Text(
-                        'Income Manager',
-                        style:
-                            AppTextStyles.heading2,
-                      ),
+                    child: Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                      children: [
 
-                      const SizedBox(height: 8),
+                        Text(
+                          'Income Manager',
+                          style:
+                              AppTextStyles.heading2,
+                        ),
 
-                      Text(
-                        'Track salary, freelance and business income efficiently.',
-                        style:
-                            AppTextStyles.bodySmall,
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+
+                        Text(
+                          'Track salary, freelance and business income efficiently.',
+                          style:
+                              AppTextStyles.bodySmall,
+                        ),
+                      ],
+                    ),
                   ),
 
                   /// EXPORT BUTTON
@@ -82,6 +91,8 @@ class IncomePage extends StatelessWidget {
                     ),
 
                     child: Row(
+                      mainAxisSize:
+                          MainAxisSize.min,
                       children: [
 
                         const Icon(
@@ -95,7 +106,8 @@ class IncomePage extends StatelessWidget {
                         Text(
                           'Export',
                           style:
-                              AppTextStyles.bodySmall
+                              AppTextStyles
+                                  .bodySmall
                                   .copyWith(
                             color:
                                 AppColors.primary,
@@ -120,50 +132,72 @@ class IncomePage extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              /// ANALYTICS ROW
-              Row(
-                children: [
+              /// ANALYTICS GRID
+              LayoutBuilder(
+                builder:
+                    (context, constraints) {
 
-                  Expanded(
-                    child: _analyticsCard(
-                      title: 'Total Income',
-                      value: '₹85,000',
-                      growth: '+18%',
-                      icon:
-                          Icons.trending_up_rounded,
-                      iconColor:
-                          AppColors.chartGreen,
-                    ),
-                  ),
+                  int crossAxisCount = 1;
 
-                  const SizedBox(width: 18),
+                  if (constraints.maxWidth >
+                      1100) {
+                    crossAxisCount = 3;
+                  } else if (constraints
+                          .maxWidth >
+                      700) {
+                    crossAxisCount = 2;
+                  }
 
-                  Expanded(
-                    child: _analyticsCard(
-                      title: 'Freelance Earnings',
-                      value: '₹42,000',
-                      growth: '+12%',
-                      icon:
-                          Icons.work_outline_rounded,
-                      iconColor:
-                          AppColors.chartBlue,
-                    ),
-                  ),
+                  return GridView.count(
+                    shrinkWrap: true,
 
-                  const SizedBox(width: 18),
+                    physics:
+                        const NeverScrollableScrollPhysics(),
 
-                  Expanded(
-                    child: _analyticsCard(
-                      title: 'Pending Payments',
-                      value: '₹18,500',
-                      growth: '+4%',
-                      icon:
-                          Icons.pending_actions_rounded,
-                      iconColor:
-                          AppColors.warning,
-                    ),
-                  ),
-                ],
+                    crossAxisCount:
+                        crossAxisCount,
+
+                    crossAxisSpacing: 18,
+                    mainAxisSpacing: 18,
+
+                    childAspectRatio: 1.28,
+
+                    children: [
+
+                      _analyticsCard(
+                        title: 'Total Income',
+                        value: '₹85,000',
+                        growth: '+18%',
+                        icon:
+                            Icons.trending_up_rounded,
+                        iconColor:
+                            AppColors.chartGreen,
+                      ),
+
+                      _analyticsCard(
+                        title:
+                            'Freelance Earnings',
+                        value: '₹42,000',
+                        growth: '+12%',
+                        icon:
+                            Icons.work_outline_rounded,
+                        iconColor:
+                            AppColors.chartBlue,
+                      ),
+
+                      _analyticsCard(
+                        title:
+                            'Pending Payments',
+                        value: '₹18,500',
+                        growth: '+4%',
+                        icon:
+                            Icons.pending_actions_rounded,
+                        iconColor:
+                            AppColors.warning,
+                      ),
+                    ],
+                  );
+                },
               ),
 
               const SizedBox(height: 36),
@@ -192,10 +226,8 @@ class IncomePage extends StatelessWidget {
                         '+ ₹15,000',
                     date:
                         'Today',
-
                     icon:
                         Icons.design_services_outlined,
-
                     iconColor:
                         AppColors.chartGreen,
                   ),
@@ -211,10 +243,8 @@ class IncomePage extends StatelessWidget {
                         '+ ₹28,000',
                     date:
                         'Yesterday',
-
                     icon:
                         Icons.phone_android_rounded,
-
                     iconColor:
                         AppColors.primary,
                   ),
@@ -230,10 +260,8 @@ class IncomePage extends StatelessWidget {
                         '+ ₹4,200',
                     date:
                         '2 days ago',
-
                     icon:
                         Icons.currency_rupee_rounded,
-
                     iconColor:
                         AppColors.chartPurple,
                   ),
@@ -249,10 +277,8 @@ class IncomePage extends StatelessWidget {
                         '+ ₹7,500',
                     date:
                         'This Week',
-
                     icon:
                         Icons.support_agent_rounded,
-
                     iconColor:
                         AppColors.taxHighlight,
                   ),
@@ -272,6 +298,8 @@ class IncomePage extends StatelessWidget {
 
               DashboardContainer(
                 child: Row(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
                   children: [
 
                     /// ICON
@@ -352,66 +380,78 @@ class IncomePage extends StatelessWidget {
   }) {
 
     return DashboardContainer(
-      child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
-        children: [
+      child: SizedBox(
+        height: double.infinity,
 
-          Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
-            children: [
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.start,
+          mainAxisAlignment:
+              MainAxisAlignment.spaceBetween,
+          children: [
 
-              Container(
-                padding:
-                    const EdgeInsets.all(14),
+            Row(
+              mainAxisAlignment:
+                  MainAxisAlignment
+                      .spaceBetween,
+              children: [
 
-                decoration: BoxDecoration(
-                  color:
-                      iconColor.withOpacity(
-                          0.12),
+                Container(
+                  padding:
+                      const EdgeInsets.all(14),
 
-                  borderRadius:
-                      BorderRadius.circular(
-                          18),
+                  decoration: BoxDecoration(
+                    color:
+                        iconColor.withOpacity(
+                            0.12),
+
+                    borderRadius:
+                        BorderRadius.circular(
+                            18),
+                  ),
+
+                  child: Icon(
+                    icon,
+                    color: iconColor,
+                  ),
                 ),
 
-                child: Icon(
-                  icon,
-                  color: iconColor,
+                Text(
+                  growth,
+                  style: AppTextStyles
+                      .bodySmall
+                      .copyWith(
+                    color:
+                        AppColors.success,
+                    fontWeight:
+                        FontWeight.w600,
+                  ),
                 ),
-              ),
+              ],
+            ),
 
-              Text(
-                growth,
-                style:
-                    AppTextStyles.bodySmall
-                        .copyWith(
-                  color:
-                      AppColors.success,
-                  fontWeight:
-                      FontWeight.w600,
+            Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+              children: [
+
+                Text(
+                  value,
+                  style:
+                      AppTextStyles.heading3,
                 ),
-              ),
-            ],
-          ),
 
-          const SizedBox(height: 22),
+                const SizedBox(height: 8),
 
-          Text(
-            value,
-            style:
-                AppTextStyles.heading3,
-          ),
-
-          const SizedBox(height: 8),
-
-          Text(
-            title,
-            style:
-                AppTextStyles.bodySmall,
-          ),
-        ],
+                Text(
+                  title,
+                  style:
+                      AppTextStyles.bodySmall,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

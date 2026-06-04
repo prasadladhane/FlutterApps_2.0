@@ -13,7 +13,12 @@ import 'desktop_sidebar.dart';
 import 'tablet_sidebar.dart';
 
 class MainNavigationPage extends StatefulWidget {
-  const MainNavigationPage({super.key});
+  final int initialIndex;
+
+ const MainNavigationPage({
+  super.key,
+  this.initialIndex = 0,
+});
 
   @override
   State<MainNavigationPage> createState() =>
@@ -23,7 +28,13 @@ class MainNavigationPage extends StatefulWidget {
 class _MainNavigationPageState
     extends State<MainNavigationPage> {
 
-  int currentIndex = 0;
+  late int currentIndex;
+
+  @override
+void initState() {
+  super.initState();
+  currentIndex = widget.initialIndex;
+}
 
   // =========================================================
   // ALL MAIN PAGES

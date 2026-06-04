@@ -27,11 +27,15 @@ class _TaxCalculatorPageState
   void calculateTax() {
 
     final income =
-        double.tryParse(incomeController.text) ?? 0;
+        double.tryParse(
+              incomeController.text,
+            ) ??
+            0;
 
     final deduction =
         double.tryParse(
-            deductionController.text) ??
+              deductionController.text,
+            ) ??
             0;
 
     final taxableIncome =
@@ -41,12 +45,21 @@ class _TaxCalculatorPageState
 
     /// SIMPLE DEMO TAX LOGIC
     if (taxableIncome <= 250000) {
+
       tax = 0;
-    } else if (taxableIncome <= 500000) {
+
+    } else if (taxableIncome <=
+        500000) {
+
       tax = taxableIncome * 0.05;
-    } else if (taxableIncome <= 1000000) {
+
+    } else if (taxableIncome <=
+        1000000) {
+
       tax = taxableIncome * 0.10;
+
     } else {
+
       tax = taxableIncome * 0.20;
     }
 
@@ -73,93 +86,136 @@ class _TaxCalculatorPageState
             children: [
 
               /// HEADER
-              Row(
-                mainAxisAlignment:
-                    MainAxisAlignment
-                        .spaceBetween,
-                children: [
+              LayoutBuilder(
+                builder:
+                    (context, constraints) {
 
-                  /// LEFT SECTION
-                  Column(
+                  final bool isMobile =
+                      constraints.maxWidth <
+                          700;
+
+                  return Wrap(
+                    spacing: 16,
+                    runSpacing: 16,
+
+                    alignment:
+                        WrapAlignment
+                            .spaceBetween,
+
                     crossAxisAlignment:
-                        CrossAxisAlignment
-                            .start,
+                        WrapCrossAlignment
+                            .center,
+
                     children: [
 
-                      Text(
-                        'Tax Calculator',
-                        style:
-                            AppTextStyles
-                                .heading2,
+                      /// LEFT SECTION
+                      SizedBox(
+                        width: isMobile
+                            ? constraints
+                                .maxWidth
+                            : constraints
+                                    .maxWidth *
+                                0.65,
+
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment
+                                  .start,
+                          children: [
+
+                            Text(
+                              'Tax Calculator',
+
+                              style:
+                                  AppTextStyles
+                                      .heading2,
+                            ),
+
+                            const SizedBox(
+                                height: 8),
+
+                            Text(
+                              'Estimate taxes, deductions and financial liabilities.',
+
+                              style:
+                                  AppTextStyles
+                                      .bodySmall,
+                            ),
+                          ],
+                        ),
                       ),
 
-                      const SizedBox(
-                          height: 8),
+                      /// AI BADGE
+                      Container(
+                        padding:
+                            const EdgeInsets
+                                .symmetric(
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
 
-                      Text(
-                        'Estimate taxes, deductions and financial liabilities.',
-                        style:
-                            AppTextStyles
-                                .bodySmall,
+                        decoration:
+                            BoxDecoration(
+                          color: AppColors
+                              .primary
+                              .withOpacity(
+                                  0.12),
+
+                          borderRadius:
+                              BorderRadius
+                                  .circular(
+                                      30),
+                        ),
+
+                        child: Row(
+                          mainAxisSize:
+                              MainAxisSize
+                                  .min,
+
+                          children: [
+
+                            const Icon(
+                              Icons
+                                  .auto_awesome,
+
+                              color:
+                                  AppColors
+                                      .primary,
+
+                              size: 18,
+                            ),
+
+                            const SizedBox(
+                                width: 8),
+
+                            Flexible(
+                              child: Text(
+                                'AI Powered',
+
+                                overflow:
+                                    TextOverflow
+                                        .ellipsis,
+
+                                style:
+                                    AppTextStyles
+                                        .bodySmall
+                                        .copyWith(
+                                  color:
+                                      AppColors
+                                          .primary,
+
+                                  fontWeight:
+                                      FontWeight
+                                          .w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
-                  ),
-
-                  /// AI BADGE
-                  Container(
-                    padding:
-                        const EdgeInsets
-                            .symmetric(
-                      horizontal: 16,
-                      vertical: 10,
-                    ),
-
-                    decoration:
-                        BoxDecoration(
-                      color: AppColors
-                          .primary
-                          .withOpacity(
-                              0.12),
-
-                      borderRadius:
-                          BorderRadius
-                              .circular(
-                                  30),
-                    ),
-
-                    child: Row(
-                      children: [
-
-                        const Icon(
-                          Icons
-                              .auto_awesome,
-                          color:
-                              AppColors
-                                  .primary,
-                          size: 18,
-                        ),
-
-                        const SizedBox(
-                            width: 8),
-
-                        Text(
-                          'AI Powered',
-                          style:
-                              AppTextStyles
-                                  .bodySmall
-                                  .copyWith(
-                            color:
-                                AppColors
-                                    .primary,
-                            fontWeight:
-                                FontWeight
-                                    .w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
 
               const SizedBox(height: 36),
@@ -168,6 +224,7 @@ class _TaxCalculatorPageState
               DashboardSectionTitle(
                 title:
                     'Tax Estimation',
+
                 subtitle:
                     'Enter your financial details for tax calculation.',
               ),
@@ -186,10 +243,13 @@ class _TaxCalculatorPageState
                     _inputField(
                       title:
                           'Annual Income',
+
                       hint:
                           'Enter annual income',
+
                       controller:
                           incomeController,
+
                       icon:
                           Icons
                               .currency_rupee_rounded,
@@ -202,10 +262,13 @@ class _TaxCalculatorPageState
                     _inputField(
                       title:
                           'Total Deductions',
+
                       hint:
                           'Enter deductions',
+
                       controller:
                           deductionController,
+
                       icon:
                           Icons
                               .receipt_long_outlined,
@@ -248,6 +311,7 @@ class _TaxCalculatorPageState
 
                         child: Text(
                           'Calculate Tax',
+
                           style:
                               AppTextStyles
                                   .bodyMedium
@@ -255,6 +319,7 @@ class _TaxCalculatorPageState
                             color:
                                 Colors
                                     .white,
+
                             fontWeight:
                                 FontWeight
                                     .w600,
@@ -272,6 +337,7 @@ class _TaxCalculatorPageState
               DashboardSectionTitle(
                 title:
                     'Estimated Tax Result',
+
                 subtitle:
                     'Calculated tax based on entered details.',
               ),
@@ -291,6 +357,7 @@ class _TaxCalculatorPageState
 
                     Text(
                       'Estimated Tax',
+
                       style:
                           AppTextStyles
                               .bodySmall,
@@ -301,6 +368,7 @@ class _TaxCalculatorPageState
 
                     Text(
                       '₹${estimatedTax.toStringAsFixed(2)}',
+
                       style:
                           AppTextStyles
                               .heading1
@@ -338,6 +406,7 @@ class _TaxCalculatorPageState
                               const Icon(
                             Icons
                                 .analytics_outlined,
+
                             color:
                                 AppColors
                                     .taxHighlight,
@@ -351,6 +420,7 @@ class _TaxCalculatorPageState
                           child: Text(
                             'AI analysis suggests possible tax-saving opportunities '
                             'through investment deductions and expense optimization.',
+
                             style:
                                 AppTextStyles
                                     .bodySmall
@@ -372,6 +442,7 @@ class _TaxCalculatorPageState
               DashboardSectionTitle(
                 title:
                     'Smart Tax Saving Tips',
+
                 subtitle:
                     'AI-powered recommendations for reducing taxable income.',
               ),
@@ -384,11 +455,14 @@ class _TaxCalculatorPageState
                   _tipTile(
                     title:
                         'Section 80C Investments',
+
                     subtitle:
                         'Invest in ELSS, PPF and insurance to reduce taxable income.',
+
                     icon:
                         Icons
                             .savings_outlined,
+
                     iconColor:
                         AppColors
                             .chartGreen,
@@ -400,11 +474,14 @@ class _TaxCalculatorPageState
                   _tipTile(
                     title:
                         'Track Business Expenses',
+
                     subtitle:
                         'Freelancers can deduct eligible business-related expenses.',
+
                     icon:
                         Icons
                             .business_center_outlined,
+
                     iconColor:
                         AppColors
                             .chartOrange,
@@ -416,11 +493,14 @@ class _TaxCalculatorPageState
                   _tipTile(
                     title:
                         'Health Insurance Benefits',
+
                     subtitle:
                         'Claim deductions under health insurance policies.',
+
                     icon:
                         Icons
                             .health_and_safety_outlined,
+
                     iconColor:
                         AppColors
                             .primary,
@@ -441,7 +521,8 @@ class _TaxCalculatorPageState
   Widget _inputField({
     required String title,
     required String hint,
-    required TextEditingController controller,
+    required TextEditingController
+        controller,
     required IconData icon,
   }) {
 
@@ -452,6 +533,7 @@ class _TaxCalculatorPageState
 
         Text(
           title,
+
           style:
               AppTextStyles.bodyMedium
                   .copyWith(
@@ -487,6 +569,7 @@ class _TaxCalculatorPageState
 
             prefixIcon: Icon(
               icon,
+
               color:
                   AppColors.primary,
             ),
@@ -527,6 +610,7 @@ class _TaxCalculatorPageState
                   const BorderSide(
                 color:
                     AppColors.primary,
+
                 width: 1.5,
               ),
             ),
@@ -585,6 +669,7 @@ class _TaxCalculatorPageState
 
                 Text(
                   title,
+
                   style:
                       AppTextStyles
                           .cardTitle,
@@ -594,6 +679,7 @@ class _TaxCalculatorPageState
 
                 Text(
                   subtitle,
+
                   style:
                       AppTextStyles
                           .bodySmall
@@ -609,3 +695,5 @@ class _TaxCalculatorPageState
     );
   }
 }
+
+
