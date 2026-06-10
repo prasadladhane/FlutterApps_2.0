@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tax_pilot/core/router/app_router.dart';
@@ -16,7 +15,6 @@ class DashboardPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               /// HEADER
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,31 +43,21 @@ class DashboardPage extends StatelessWidget {
 
                   Row(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(14),
+                     
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRouter.dashboard,
+                            arguments: 4,
+                          );
+                        },
+                        child: const CircleAvatar(
+                          radius: 22,
+                          backgroundColor: Color(0xFF1E3A5F),
+                          child: Icon(Icons.person, color: Colors.white),
                         ),
-                        child: const Icon(Icons.notifications_none_rounded),
                       ),
-                      const SizedBox(width: 12),
-                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context,
-                        AppRouter.dashboard,
-                        arguments: 4,
-                      );
-                    },
-                    child: const CircleAvatar(
-                    radius: 22,
-                    backgroundColor: Color(0xFF1E3A5F),
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
-                    ),
-                  ),
-                  ),
                     ],
                   ),
                 ],
@@ -138,22 +126,42 @@ class DashboardPage extends StatelessWidget {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 childAspectRatio: 1.1,
-                children: const [
-                  DashboardActionCard(
-                    icon: Icons.add_chart_rounded,
-                    title: 'Add Income',
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRouter.addIncome);
+                    },
+                    child: const DashboardActionCard(
+                      icon: Icons.add_chart_rounded,
+                      title: 'Add Income',
+                    ),
                   ),
-                  DashboardActionCard(
-                    icon: Icons.account_balance_wallet_outlined,
-                    title: 'Expenses',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRouter.expense);
+                    },
+                    child: DashboardActionCard(
+                      icon: Icons.account_balance_wallet_outlined,
+                      title: 'Expenses',
+                    ),
                   ),
-                  DashboardActionCard(
-                    icon: Icons.upload_file_outlined,
-                    title: 'Upload Bills',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRouter.uploadBills);
+                    },
+                    child: DashboardActionCard(
+                      icon: Icons.upload_file_outlined,
+                      title: 'Upload Bills',
+                    ),
                   ),
-                  DashboardActionCard(
-                    icon: Icons.auto_awesome,
-                    title: 'AI Assistant',
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRouter.aiAsistant);
+                    },
+                    child: DashboardActionCard(
+                      icon: Icons.auto_awesome,
+                      title: 'AI Assistant',
+                    ),
                   ),
                 ],
               ),
@@ -169,7 +177,7 @@ class DashboardPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.04),
+                      color: Colors.black.withValues(alpha: 0.04),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -180,7 +188,7 @@ class DashboardPage extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF4F7CFF).withOpacity(0.1),
+                        color: const Color(0xFF4F7CFF).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: const Icon(
@@ -263,10 +271,7 @@ class DashboardPage extends StatelessWidget {
       children: [
         Text(
           title,
-          style: GoogleFonts.poppins(
-            color: Colors.white70,
-            fontSize: 13,
-          ),
+          style: GoogleFonts.poppins(color: Colors.white70, fontSize: 13),
         ),
         const SizedBox(height: 4),
         Text(
@@ -301,7 +306,7 @@ class DashboardActionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(22),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -313,14 +318,10 @@ class DashboardActionCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: const Color(0xFF4F7CFF).withOpacity(0.1),
+              color: const Color(0xFF4F7CFF).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Icon(
-              icon,
-              size: 30,
-              color: const Color(0xFF4F7CFF),
-            ),
+            child: Icon(icon, size: 30, color: const Color(0xFF4F7CFF)),
           ),
           const SizedBox(height: 16),
           Text(
@@ -363,13 +364,10 @@ class ActivityTile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: const Color(0xFF4F7CFF).withOpacity(0.1),
+              color: const Color(0xFF4F7CFF).withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(14),
             ),
-            child: Icon(
-              icon,
-              color: const Color(0xFF4F7CFF),
-            ),
+            child: Icon(icon, color: const Color(0xFF4F7CFF)),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -386,10 +384,7 @@ class ActivityTile extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: GoogleFonts.poppins(
-                    fontSize: 13,
-                    color: Colors.grey,
-                  ),
+                  style: GoogleFonts.poppins(fontSize: 13, color: Colors.grey),
                 ),
               ],
             ),

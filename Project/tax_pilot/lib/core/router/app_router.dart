@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:tax_pilot/features/ai_assistant/presentation/pages/ai_assistant_page.dart';
+import 'package:tax_pilot/features/dashboard/presentation/widgets/dashboard_add_income.dart';
+
 import 'package:tax_pilot/features/finance/presentation/pages/expense_page.dart';
 import 'package:tax_pilot/features/dashboard/presentation/pages/login_page.dart';
 import 'package:tax_pilot/features/dashboard/presentation/pages/onboarding_page.dart';
 import 'package:tax_pilot/features/dashboard/presentation/pages/signup_page.dart';
 import 'package:tax_pilot/features/finance/presentation/pages/income_page.dart';
+import 'package:tax_pilot/features/uploads/presentation/pages/upload_bills_page.dart';
 import 'package:tax_pilot/shared_layout/main_navigation_page.dart';
+import 'package:tax_pilot/shared_layout/notification.dart';
 
 class AppRouter {
   AppRouter._();
@@ -30,6 +35,18 @@ class AppRouter {
 
   static const String income =
     '/income';
+
+  static const String addIncome =
+    '/add-income';
+
+  static const String uploadBills =
+    '/upload-bills';
+
+  static const String aiAsistant =
+    '/ai assistant';
+
+  static const String notify =
+    'notify';
 
   // =======================================================
   // ROUTES
@@ -104,6 +121,45 @@ class AppRouter {
         builder: (_) =>
         const IncomePage(),
       );
+
+      // ===================================================
+      // ADD INCOME PAGE
+      // ===================================================
+
+      case addIncome:
+        return MaterialPageRoute(
+          builder: (_) =>
+              const AddIncomePage(),
+        );
+
+      // ===================================================
+      // UPLOAD BILLS ON DASHBOARD
+      // ===================================================
+
+      case uploadBills:
+        return MaterialPageRoute(
+          builder: (_) =>
+              const UploadBillsPage(),
+        );
+
+      // ===================================================
+      // AI ASSISTANT
+      // ===================================================
+
+      case aiAsistant:
+        return MaterialPageRoute(
+          builder: (_) =>
+              const AiAssistantPage(),
+        );
+      // ===================================================
+      // NOTIFICATION
+      // ===================================================
+
+      case notify:
+        return MaterialPageRoute(
+          builder: (_) =>
+              const NotificationPage(),
+        );      
 
       // ===================================================
       // DEFAULT

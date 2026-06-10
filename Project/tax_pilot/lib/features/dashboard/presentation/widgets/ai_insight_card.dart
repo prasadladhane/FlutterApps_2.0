@@ -43,7 +43,7 @@ class AIInsightCard extends StatelessWidget {
                 padding: const EdgeInsets.all(14),
 
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.15),
+                  color: AppColors.primary.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(18),
                 ),
 
@@ -122,7 +122,7 @@ class AIInsightCard extends StatelessWidget {
                   ),
 
                   decoration: BoxDecoration(
-                    color: AppColors.taxHighlight.withOpacity(0.15),
+                    color: AppColors.taxHighlight.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(30),
                   ),
 
@@ -188,11 +188,11 @@ class AIInsightCard extends StatelessWidget {
       ),
 
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.12),
+        color: AppColors.primary.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(16),
 
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.25),
+          color: AppColors.primary.withValues(alpha: 0.25),
         ),
       ),
 

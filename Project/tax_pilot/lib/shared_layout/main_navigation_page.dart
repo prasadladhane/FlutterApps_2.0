@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tax_pilot/core/router/app_router.dart';
 
 import '../core/constants/app_colors.dart';
 import '../features/ai_assistant/presentation/pages/ai_assistant_page.dart';
@@ -99,7 +100,9 @@ void initState() {
           actions: [
 
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, AppRouter.notify);
+              },
 
               icon: const Icon(
                 Icons.notifications_none_rounded,

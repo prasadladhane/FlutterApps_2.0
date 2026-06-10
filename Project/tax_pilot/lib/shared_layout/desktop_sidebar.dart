@@ -189,7 +189,7 @@ class DesktopSidebar extends StatelessWidget {
               BoxDecoration(
             color: isSelected
                 ? AppColors.primary
-                    .withOpacity(0.14)
+                    .withValues(alpha: 0.14)
                 : Colors.transparent,
 
             borderRadius:
@@ -199,7 +199,7 @@ class DesktopSidebar extends StatelessWidget {
             border: Border.all(
               color: isSelected
                   ? AppColors.primary
-                      .withOpacity(0.25)
+                      .withValues(alpha: 0.25)
                   : Colors.transparent,
             ),
           ),
