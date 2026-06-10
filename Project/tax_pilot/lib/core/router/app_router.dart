@@ -7,6 +7,8 @@ import 'package:tax_pilot/features/dashboard/presentation/pages/login_page.dart'
 import 'package:tax_pilot/features/dashboard/presentation/pages/onboarding_page.dart';
 import 'package:tax_pilot/features/dashboard/presentation/pages/signup_page.dart';
 import 'package:tax_pilot/features/finance/presentation/pages/income_page.dart';
+import 'package:tax_pilot/features/profile/presentation/pages/billing.dart';
+import 'package:tax_pilot/features/profile/presentation/pages/edit_profile_page.dart';
 import 'package:tax_pilot/features/uploads/presentation/pages/upload_bills_page.dart';
 import 'package:tax_pilot/shared_layout/main_navigation_page.dart';
 import 'package:tax_pilot/shared_layout/notification.dart';
@@ -48,6 +50,11 @@ class AppRouter {
   static const String notify =
     'notify';
 
+  static const String editProfile =
+    'edit profile';
+
+  static const String billing =
+    'subscription & billing';
   // =======================================================
   // ROUTES
   // =======================================================
@@ -159,7 +166,27 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) =>
               const NotificationPage(),
-        );      
+        );   
+
+      // ===================================================
+      // EDIT PROFILE PAGE
+      // ===================================================
+
+      case editProfile:
+        return MaterialPageRoute(
+          builder: (_) =>
+              const EditProfilePage(),
+        );   
+      
+      // ===================================================
+      // SUBSCRIPTION & BILLING INSIDE PROFILE PAGE
+      // ===================================================
+
+      case billing:
+        return MaterialPageRoute(
+          builder: (_) =>
+              const SubscriptionBillingPage(),
+        );   
 
       // ===================================================
       // DEFAULT
