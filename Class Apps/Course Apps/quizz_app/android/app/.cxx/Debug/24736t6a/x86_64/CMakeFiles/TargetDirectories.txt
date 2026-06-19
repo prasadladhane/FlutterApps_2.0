@@ -1,2 +1,0 @@
-E:/Apps/flutter-apps/Class Apps/Course Apps/quizz_app/android/app/.cxx/Debug/24736t6a/x86_64/CMakeFiles/edit_cache.dir
-E:/Apps/flutter-apps/Class Apps/Course Apps/quizz_app/android/app/.cxx/Debug/24736t6a/x86_64/CMakeFiles/rebuild_cache.dir
