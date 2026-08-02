@@ -1,0 +1,185 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  # Tomcat tuning for 30K users
+  tomcat:
+    threads:
+      max: 200          # max worker threads
+      min-spare: 20     # always-warm threads
+    accept-count: 100   # queue size when all threads busy
+    connection-timeout: 20000
+    max-connections: 8192
+
+spring:
+  application:
+    name: tax-pilot-backend
+
+  # ============================================================
+  # DATASOURCE — PostgreSQL on port 5433
+  # ============================================================
+  datasource:
+    url: jdbc:postgresql://localhost:5433/tax_pilot?reWriteBatchedInserts=true&stringtype=unspecified
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+    # HikariCP connection pool — tuned for 30K users
+    hikari:
+      pool-name: TaxPilotHikariPool
+      minimum-idle: 10          # always-ready connections
+      maximum-pool-size: 30     # max connections to PostgreSQL
+                                # Rule of thumb: (2 * CPU cores) + spindle count
+                                # Adjust up if DB server has more cores
+      idle-timeout: 600000      # 10 min — close idle connections
+      max-lifetime: 1800000     # 30 min — recycle connections (before PG kills them)
+      connection-timeout: 30000 # 30s — fail fast if pool exhausted
+      keepalive-time: 300000    # 5 min — keep-alive ping to prevent stale connections
+      leak-detection-threshold: 60000   # warn if connection held > 60s (detects leaks)
+      connection-test-query: SELECT 1
+
+  # ============================================================
+  # JPA / HIBERNATE
+  # ============================================================
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate          # NEVER create/drop — schema managed by SQL files
+    show-sql: false               # set true only for local debugging
+    open-in-view: false           # prevents lazy-loading anti-pattern, improves performance
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50          # batch inserts/updates for bulk operations
+          fetch_size: 100
+        order_inserts: true
+        order_updates: true
+        format_sql: false
+        default_schema: public
+
+  # ============================================================
+  # JACKSON
+  # ============================================================
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      fail-on-empty-beans: false
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+    time-zone: Asia/Kolkata
+
+  # ============================================================
+  # ASYNC THREAD POOL (for tax recalculation, notifications)
+  # ============================================================
+  task:
+    execution:
+      pool:
+        core-size: 10
+        max-size: 50
+        queue-capacity: 500
+        keep-alive: 60s
+      thread-name-prefix: taxpilot-async-
+
+  # ============================================================
+  # SCHEDULING (advance tax reminders, overdue checks)
+  # ============================================================
+  task:
+    scheduling:
+      pool:
+        size: 5
+      thread-name-prefix: taxpilot-sched-
+
+# ============================================================
+# FIREBASE
+# ============================================================
+firebase:
+  service-account-path: classpath:firebase-service-account.json
+  project-id: your-firebase-project-id   # REPLACE with your Firebase project ID
+
+# ============================================================
+# CACHE (Caffeine — in-memory)
+# TTL values tuned for tax data (changes infrequently)
+# ============================================================
+cache:
+  caffeine:
+    specs:
+      dashboard: maximumSize=10000,expireAfterWrite=5m
+      tax-estimate: maximumSize=10000,expireAfterWrite=10m
+      user-profile: maximumSize=10000,expireAfterWrite=30m
+      tax-slabs: maximumSize=100,expireAfterWrite=24h    # reference data, rarely changes
+
+# ============================================================
+# RATE LIMITING
+# ============================================================
+rate-limit:
+  enabled: true
+  capacity: 100           # requests per window
+  refill-tokens: 100
+  refill-duration-seconds: 60   # 100 requests/minute per user
+
+# ============================================================
+# ACTUATOR (health + metrics — restrict in prod)
+# ============================================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: when-authorized
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: TaxPilot Backend
+    version: 1.0.0
+    description: Indian income tax assistant API
+
+# ============================================================
+# LOGGING
+# ============================================================
+logging:
+  level:
+    root: INFO
+    com.taxpilot: DEBUG
+    org.hibernate.SQL: WARN
+    com.zaxxer.hikari: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/tax-pilot.log
+    max-size: 50MB
+    max-history: 30
+
+---
+# ============================================================
+# PRODUCTION PROFILE — override with: --spring.profiles.active=prod
+# ============================================================
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 50   # scale up in prod
+
+  jpa:
+    show-sql: false
+
+firebase:
+  service-account-path: ${FIREBASE_SERVICE_ACCOUNT_PATH}
+  project-id: ${FIREBASE_PROJECT_ID}
+
+logging:
+  level:
+    root: WARN
+    com.taxpilot: INFO

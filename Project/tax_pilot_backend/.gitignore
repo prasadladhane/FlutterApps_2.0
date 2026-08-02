@@ -1,0 +1,28 @@
+target/
+*.class
+*.jar
+*.war
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+
+# VS Code
+.vscode/
+
+# Maven wrapper
+.mvn/
+
+# Logs
+logs/
+*.log
+
+# Environment / secrets — NEVER commit these
+src/main/resources/firebase-service-account.json
+src/main/resources/application-prod.yml
+.env
+
+# OS
+.DS_Store
+Thumbs.db
